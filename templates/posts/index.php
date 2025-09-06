@@ -9,24 +9,27 @@
 </head>
 <body>
 
-<h1>Посты</h1>
-<a href="/posts/create">Добавить</a>
+<main>
+    <h1>Посты</h1>
+    <a href="/posts/create">Добавить</a>
 
-<div class="posts-wrapper">
-    <?php foreach ($posts as $post): ?>
-        <div class="posts-item">
-            <h2><?= $post['name'] ?></h2>
-            <p><?= $post['description'] ?></p>
+    <div class="posts-wrapper">
+        <?php foreach ($posts as $post): ?>
+            <div class="posts-item">
+                <h2><?= $post['name'] ?></h2>
+                <p><?= $post['description'] ?></p>
 
-            <a href="/posts/<?= $post['id'] ?>">Посмотреть</a>
-            <a href="/posts/<?= $post['id'] ?>/edit">Изменить</a>
-            <form action="/posts/<?= $post['id'] ?>" method="post">
-                <input type="hidden" name="_METHOD" value="DELETE">
-                <button type="submit">Удалить</button>
-            </form>
-        </div>
-    <?php endforeach; ?>
-</div>
+                <a href="/posts/<?= $post['id'] ?>">Посмотреть</a>
+                <a href="/posts/<?= $post['id'] ?>/edit">Изменить</a>
+                <a href="/posts/<?=$post['id']?>/comments">Комментарий</a>
+                <form action="/posts/<?= $post['id'] ?>" method="post">
+                    <input type="hidden" name="_METHOD" value="DELETE">
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</main>
 
 </body>
 </html>

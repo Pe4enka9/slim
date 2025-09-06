@@ -40,5 +40,7 @@ $app->get('/posts/{id}/edit', [PostController::class, 'edit']);
 $app->patch('/posts/{id}/edit', [PostController::class, 'update']);
 $app->get('/posts/{id}', [PostController::class, 'show']);
 $app->delete('/posts/{id}', [PostController::class, 'destroy']);
+$app->get('/posts/{id}/comments', [PostController::class, 'comments']);
+$app->post('/posts/{id}/comments', [PostController::class, 'addComments']);
 
 $app->run();

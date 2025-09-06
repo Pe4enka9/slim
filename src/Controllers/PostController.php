@@ -99,4 +99,28 @@ class PostController extends Controller
 
         return $response->withHeader('Location', '/posts')->withStatus(302);
     }
+
+    public function comments(
+        RequestInterface $request, ResponseInterface $response, array $args
+    )
+    {
+        $id = $args['id'] ?? '';
+        $post = ORM::forTable('posts')->findOne($id);
+        $comments = ORM::forTable('comments')->where('post_id', $id)->findArray();
+        return $this->renderer->render($response, '/posts/comments.php', [
+            'post' => $post,
+            'comments' => $comments,
+        ]);
+    }
+    public function addComments(RequestInterface $request, ResponseInterface $response, array $args)
+    {
+        $id = $args['id'] ?? '';
+        $data = $request->getParsedBody();
+        $text = $data['text'] ?? '';
+        ORM::forTable('comments')->create([
+            'text' => $text,
+            'post_id' => $id
+        ])->save();
+        return $response->withHeader('Location', '/posts/' . $id.'/comments')->withStatus(302);
+    }
 }
